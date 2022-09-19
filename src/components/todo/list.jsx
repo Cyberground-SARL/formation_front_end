@@ -5,7 +5,6 @@ import StyleList from "./list.module.css";
 
 export default function ListOfToDos() {
   const { tasks } = useContext(TaskContext);
-  console.log(tasks);
 
   return (
     <>
@@ -30,7 +29,7 @@ export default function ListOfToDos() {
           </thead>
           <tbody>
             <tr>
-              <td>{tasks.id}</td>
+              <td>1</td>
               <td>{tasks.title}</td>
               <td>{tasks.description}</td>
               <td>@whatever</td>
