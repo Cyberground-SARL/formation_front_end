@@ -25,17 +25,19 @@ export const TodoContextProvider = ({children}) => {
         .catch((err) => {
         
         })
-        
-        console.log(todo)
-        axios
-            .get("http://localhost:4444/")
-            .then((res) => setTodo({ todo: res.data }));
+       
+       
 
             axios.delete(`http://localhost:4444/${this.Todo.id}`).then((res) => {
                 this.setState({
                   todo: this.state.Todo.filter((todo) => todo.id !== id),
                 });
               });
+    }
+    const getAllTasks = () => {
+     axios.get("http://localhost:4444/")
+            .then((res) => setTodo(res.data))
+            .catch((err)=>{console.log(err)})
     }
     return (
         <TodoContext.Provider> 
