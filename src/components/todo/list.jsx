@@ -6,7 +6,6 @@ import StyleList from "./list.module.css";
 export default function ListOfToDos() {
   const { tasks } = useContext(TaskContext);
   console.log(tasks);
-  tasks?.map((e, i) => {
     return (
       <>
         <h1 className={StyleList.heading}>List of all to do lists</h1>
@@ -29,12 +28,19 @@ export default function ListOfToDos() {
               </tr>
             </thead>
             <tbody>
-              <tr key={i}>
-                <td>1</td>
-                <td>{e.title}</td>
-                <td>{e.description}</td>
-                <td>@whatever</td>
-              </tr>
+                  {tasks.map((e,i)=>{
+                      return (
+                      <>
+                        <tr key={i}>
+                            <td>1</td>
+                            <td>{e.title}</td>
+                            <td>{e.description}</td>
+                            <td>@whatever</td>
+                          </tr>
+                      </>
+                      )
+                  })}
+              
             </tbody>
           </Table>
         </Col>
