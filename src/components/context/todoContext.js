@@ -10,13 +10,12 @@ export const TaskContextProvider = ({ children }) => {
     axios
       .post(url, task)
       .then((res) => {
-        setTasks([
-          ...tasks,
+        setTasks([...tasks],
           {
             title: task.title,
             description: task.description,
           },
-        ]);
+        );
         setSuccess(res.message);
         setLoading(false);
       })
@@ -27,12 +26,12 @@ export const TaskContextProvider = ({ children }) => {
   };
 
   // .get
-  const getTask = (url, task) => {
+  const getTask = (url) => {
     setLoading(true);
     axios
       .get("http://localhost:4444/")
       .then((res) => {
-        setTasks({ tasks: res.data });
+        setTasks(res.data);
         setSuccess(res.message);
         setLoading(false);
       })
@@ -43,12 +42,10 @@ export const TaskContextProvider = ({ children }) => {
   };
 
   // .delete
-  const deleteTask = (url, task, id) => {
+  const deleteTask = (url, id) => {
     setLoading(true);
-    axios.delete(`http://localhost:4444/${this.tasks.id}`).then((res) => {
-      this.setTasks({
-        tasks: this.tasks.task.filter((task) => task.id !== id),
-      });
+    axios.delete(`http://localhost:4444/${id}`).then((res) => {
+      setTasks([...tasks], task.filter((task) => task.id !== id));
       setSuccess(res.message);
       setLoading(false).catch((err) => {
         console.log(err);
