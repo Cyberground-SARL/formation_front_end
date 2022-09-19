@@ -7,7 +7,10 @@ import axios from 'axios'
 export const TodoContext = createContext();
 
 export const TodoContextProvider = ({children}) => {
-    const [todo, setTodo] = useState([])
+    const [todo, setTodo] = useState([]);
+    const [loading, setLoading] = useState([]);
+    const [sucess, setSucess] = useState ([]);
+
     const postTodo = (url,title, description) => {
         axios.post(url, {
             title : title
@@ -16,7 +19,7 @@ export const TodoContextProvider = ({children}) => {
         .then((res)=>{
             setTodo([...todo], {
                 title: title,
-                description: description
+                description: description,
             })
         })
         .catch((err) => {
@@ -24,6 +27,15 @@ export const TodoContextProvider = ({children}) => {
         })
         
         console.log(todo)
+        axios
+            .get("http://localhost:4444/")
+            .then((res) => setTodo({ todo: res.data }));
+
+            axios.delete(`http://localhost:4444/${this.Todo.id}`).then((res) => {
+                this.setState({
+                  todo: this.state.Todo.filter((todo) => todo.id !== id),
+                });
+              });
     }
     return (
         <TodoContext.Provider> 

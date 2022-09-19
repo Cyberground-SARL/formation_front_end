@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { Col, Table } from 'react-bootstrap'
 import StyleList from './list.module.css'
+import { TodoContext } from '../../Context/todo.js'
 
 export default function ListOfToDos() {
     const { todo } = useContext(TodoContext)
@@ -21,8 +22,8 @@ export default function ListOfToDos() {
                     <tbody>
                         <tr>
                             <td>1</td>
-                            <td>Mark</td>
-                            <td>Otto</td>
+                            <td>{todo.title}</td>
+                            <td>{todo.description}</td>
                             <td>@mdo</td>
                         </tr>
                     </tbody>
