@@ -1,8 +1,23 @@
-import React from 'react'
+import {React, useContext} from 'react'
 import {Col, Table} from 'react-bootstrap'
 import StyleList from './list.module.css'
+import { TaskContext } from '../../context/context'
+import { toHaveStyle } from '@testing-library/jest-dom/dist/matchers'
+
+
 
 export default function ListOfToDos() {
+    const {tasks, deleteTask, editTask} = useContext(TaskContext)
+    
+
+     
+    const handleEdit = () => {
+        editTask()
+        console.log(tasks)
+    }
+
+    
+    
     return (
         <>
         <h1 className={StyleList.heading}>List of all to do lists</h1>
@@ -17,12 +32,15 @@ export default function ListOfToDos() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
+                        {tasks.map((task) => (
+                        <tr key={task.id}>
+                        <td>{task.id}</td>
+                        <td>{task.title}</td>
+                        <td>{task.description}</td>
                         <td>@mdo</td>
-                        </tr>
+                        <td><button onClick={() => deleteTask(task.id)}>delete</button></td>
+                        <td><button onClick={handleEdit}>edit</button></td>
+                        </tr>))}
                     </tbody>
                 </Table>
             </Col>
