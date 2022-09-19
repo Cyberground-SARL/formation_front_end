@@ -4,9 +4,9 @@ import { TaskContext } from "../context/todoContext";
 import StyleList from "./list.module.css";
 
 export default function ListOfToDos() {
-  const { task } = useContext(TaskContext);
-  console.log(task);
-  task?.map((e, i) => {
+  const { tasks } = useContext(TaskContext);
+  console.log(tasks);
+  tasks?.map((e, i) => {
     return (
       <>
         <h1 className={StyleList.heading}>List of all to do lists</h1>

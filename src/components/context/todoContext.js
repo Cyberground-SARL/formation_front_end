@@ -10,12 +10,10 @@ export const TaskContextProvider = ({ children }) => {
     axios
       .post(url, task)
       .then((res) => {
-        setTasks([...tasks],
-          {
-            title: task.title,
-            description: task.description,
-          },
-        );
+        setTasks([...tasks], {
+          title: task.title,
+          description: task.description,
+        });
         setSuccess(res.message);
         setLoading(false);
       })
@@ -45,7 +43,10 @@ export const TaskContextProvider = ({ children }) => {
   const deleteTask = (url, id) => {
     setLoading(true);
     axios.delete(`http://localhost:4444/${id}`).then((res) => {
-      setTasks([...tasks], task.filter((task) => task.id !== id));
+      setTasks(
+        [...tasks],
+        tasks.filter((task) => task.id !== id)
+      );
       setSuccess(res.message);
       setLoading(false).catch((err) => {
         console.log(err);
