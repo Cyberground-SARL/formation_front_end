@@ -27,19 +27,38 @@ export const TaskContextProvider = ({ children }) => {
   };
 
   // .get
-  axios
-    .get("http://localhost:4444/")
-    .then((res) => setTasks({ tasks: res.data }));
+  const getTask = (url, task) => {
+    setLoading(true);
+    axios
+      .get("http://localhost:4444/")
+      .then((res) => {
+        setTasks({ tasks: res.data });
+        setSuccess(res.message);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+      });
+  };
 
   // .delete
-  axios.delete(`http://localhost:4444/${this.tasks.id}`).then((res) => {
-    this.setState({
-      tasks: this.state.tasks.filter((task) => task.id !== id),
+  const deleteTask = (url, task, id) => {
+    setLoading(true);
+    axios.delete(`http://localhost:4444/${this.tasks.id}`).then((res) => {
+      this.setTasks({
+        tasks: this.tasks.task.filter((task) => task.id !== id),
+      });
+      setSuccess(res.message);
+      setLoading(false).catch((err) => {
+        console.log(err);
+        setLoading(false);
+      });
     });
-  });
+  };
 
   return (
-    <TaskContext.Provider value={{ tasks, createTask }}>
+    <TaskContext.Provider value={{ tasks, createTask, getTask, deleteTask }}>
       {children}
     </TaskContext.Provider>
   );
